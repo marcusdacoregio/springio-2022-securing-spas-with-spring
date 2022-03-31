@@ -1,0 +1,12 @@
+<div class="p-10">
+    <section class="w-full p-5 bg-white flex flex-col rounded-lg">
+        <form [formGroup]="emailForm" (ngSubmit)="sendEmail()" class="flex flex-col gap-2">
+            <input type="text" class="bg-gray-100 p-2 rounded-xl" formControlName="to" placeholder="Send to">
+            <input type="text" class="bg-gray-100 p-2 rounded-xl" formControlName="subject" placeholder="Subject">
+            <textarea class="bg-gray-100 p-2 rounded-xl" formControlName="content" placeholder="Type your message" rows="3"></textarea>
+            <div class="flex items-center p-2">
+                <button type="submit" class="p-2 pl-5 pr-5 bg-blue-500 text-gray-100 text-lg rounded-lg focus:border-4 border-blue-300">Send</button>
+            </div>
+        </form>
+    </section>
+</div>

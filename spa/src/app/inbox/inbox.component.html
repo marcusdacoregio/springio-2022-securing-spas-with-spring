@@ -1,0 +1,32 @@
+
+<section class="flex flex-col p-10 w-full h-full overflow-y-scroll">
+	<h1 class="text-2xl font-bold">Inbox</h1>
+	<ul class="mt-20 gap-3 flex flex-col">
+		<li class="py-5 border-b px-3 transition bg-gray-200 hover:bg-indigo-100 rounded-lg" *ngFor="let email of emails$ | async">
+			<a class="flex justify-between items-center">
+				<div class="flex flex-col">
+					<h3 class="text-lg font-semibold">From: {{ email.from }}</h3>
+					<h3 class="text-lg font-semibold">To: {{ email.to }}</h3>
+				</div>
+				<div class="flex flex-row gap-3 items-center">
+					<p class="text-md text-gray-400">{{ email.sentOn | date }}</p>
+					<button
+						type="button"
+						class="p-2 pl-5 pr-5 bg-blue-500 text-gray-100 text-lg rounded-lg focus:border-4 border-blue-300"
+						[routerLink]="['/app/inbox', email.id]"
+					>
+						View
+					</button>
+					<button
+						type="button"
+						class="p-2 pl-5 pr-5 bg-red-500 text-gray-100 text-lg rounded-lg focus:border-4 border-red-300"
+						(click)="deleteEmail(email)"
+					>
+						Delete
+					</button>
+				</div>
+			</a>
+			<div class="text-md italic text-gray-400">{{ email.subject }}</div>
+		</li>
+	</ul>
+</section>

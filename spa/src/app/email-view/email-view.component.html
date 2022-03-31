@@ -1,0 +1,21 @@
+<div class="p-10">
+	<section class="w-full p-5 bg-white flex flex-col rounded-lg" *ngIf="email$ | async as email">
+		<div class="flex justify-between items-center h-48 border-b-2 mb-8">
+			<div class="flex space-x-4 items-center">
+				<div class="h-12 w-12 rounded-full overflow-hidden">
+					<img src="https://picsum.photos/200/300" loading="lazy" class="h-full w-full object-cover" />
+				</div>
+				<div class="flex flex-col">
+					<h3 class="font-semibold text-lg">{{ email.from }}</h3>
+				</div>
+				<p class="text-light text-gray-400">Sent to: {{ email.to }}</p>
+			</div>
+		</div>
+		<section>
+			<h1 class="font-bold text-2xl">{{ email.subject }}</h1>
+			<article class="mt-8 text-gray-500 leading-7 tracking-wider" [innerHTML]="email.content">
+
+			</article>
+		</section>
+	</section>
+</div>

