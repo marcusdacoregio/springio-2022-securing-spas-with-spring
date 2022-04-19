@@ -11,6 +11,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.HttpStatusEntryPoint;
+import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
@@ -22,10 +23,14 @@ public class SecurityConfiguration {
 	SecurityFilterChain appSecurity(HttpSecurity http) throws Exception {
 		http
 			.cors(Customizer.withDefaults())
+			.csrf(csrf -> csrf.csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse()))
 			.authorizeHttpRequests((requests) -> requests
 				.anyRequest().authenticated()
 			)
-			.formLogin(Customizer.withDefaults())
+			.formLogin((form) -> form
+				.successHandler((req, res, auth) -> res.setStatus(HttpStatus.OK.value()))
+				.failureHandler((req, res, auth) -> res.setStatus(HttpStatus.UNAUTHORIZED.value()))
+			)
 			.exceptionHandling((exception) -> exception
 				.authenticationEntryPoint(new HttpStatusEntryPoint(HttpStatus.UNAUTHORIZED))
 			);
