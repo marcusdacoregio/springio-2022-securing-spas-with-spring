@@ -31,6 +31,9 @@ public class SecurityConfiguration {
 				.successHandler((req, res, auth) -> res.setStatus(HttpStatus.OK.value()))
 				.failureHandler((req, res, auth) -> res.setStatus(HttpStatus.UNAUTHORIZED.value()))
 			)
+			.logout(logout -> logout
+				.logoutSuccessHandler((req, res, auth) -> res.setStatus(HttpStatus.OK.value()))
+			)
 			.exceptionHandling((exception) -> exception
 				.authenticationEntryPoint(new HttpStatusEntryPoint(HttpStatus.UNAUTHORIZED))
 			);
