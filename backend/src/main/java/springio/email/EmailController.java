@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -26,13 +27,13 @@ public class EmailController {
 	}
 
 	@PostMapping("/send")
-	public void sendEmail(@RequestBody SendEmailRequest request) {
-		this.emailService.send("marcus@example.com", request);
+	public void sendEmail(@RequestBody SendEmailRequest request, Authentication authentication) {
+		this.emailService.send(authentication.getName(), request);
 	}
 
 	@GetMapping
-	public List<Email> findAll() {
-		return this.emailService.findAll();
+	public List<Email> findAll(Authentication authentication) {
+		return this.emailService.findAll(authentication.getName());
 	}
 
 	@GetMapping("/{id}")

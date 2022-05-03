@@ -33,8 +33,8 @@ public class EmailService {
 		this.emails.addFirst(email);
 	}
 
-	public List<Email> findAll() {
-		return this.emails.stream().toList();
+	public List<Email> findAll(String to) {
+		return this.emails.stream().filter(e -> to.equals(e.to())).toList();
 	}
 
 	public Optional<Email> findById(Long id) {
