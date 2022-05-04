@@ -1,0 +1,10 @@
+logging:
+  level:
+    org.springframework.security: TRACE
+
+spring:
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: http://auth-server:9000
