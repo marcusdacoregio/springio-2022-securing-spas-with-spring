@@ -5,4 +5,31 @@ logging:
   level:
     org.springframework.security: TRACE
 
-#TODO add oauth and routes
+spring:
+  security:
+    oauth2:
+      client:
+        registration:
+          inbox-web-client:
+            provider: spring
+            client-id: inbox-web
+            client-secret: secret
+            scope: openid,email:read,email:compose
+            client-name: Spring
+        provider:
+          spring:
+            issuer-uri: http://auth-server:9000
+  cloud:
+    gateway:
+      routes:
+        - id: resource
+          uri: http://127.0.0.1:8080
+          predicates:
+            - Path=/email/**, /user/**
+          filters:
+            - TokenRelay=
+        - id: default
+          uri: http://127.0.0.1:4200
+          predicates:
+            - Path=/**
+
