@@ -10,17 +10,10 @@ export class ApiInterceptor implements HttpInterceptor {
 
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
         const newReq = req.clone({
-            url: 'http://localhost:8080' + req.url,
-            withCredentials: true
+            url: 'http://127.0.0.1:8000' + req.url
         });
 
-        return next.handle(newReq).pipe(catchError(err => this.handleError(err)));
+        return next.handle(newReq);
     }
 
-    private handleError(err: HttpErrorResponse): Observable<never> {
-        if (err.status === 401) {
-            this.router.navigateByUrl('/login');
-        }
-        return throwError(() => err);
-    }
 }
