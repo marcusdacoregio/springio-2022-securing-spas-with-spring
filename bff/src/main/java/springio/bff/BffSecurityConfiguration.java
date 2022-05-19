@@ -19,6 +19,9 @@ public class BffSecurityConfiguration {
 		pkceResolver.setAuthorizationRequestCustomizer(OAuth2AuthorizationRequestCustomizers.withPkce());
 		// @formatter:off
 		http
+				.headers(headers -> headers
+						.contentSecurityPolicy("script-src 'self'")
+				)
 				.authorizeExchange((authorize) -> authorize
 						.anyExchange().authenticated()
 				)
